@@ -115,20 +115,20 @@ public class ProcessTransactionUseCase {
             return;
         }
 
-//        if (userOtp != otp) {
-//
-//            int attempts = failedAttempts.getOrDefault(cardNumber, 0) + 1;
-//            failedAttempts.put(cardNumber, attempts);
-//
-//            System.out.println("Incorrect OTP. Attempt: " + attempts);
-//
-//            if (attempts >= 3) {
-//                System.out.println("Suspicious activity detected");
-//                emailService.sendFraudAlert(cardObj.getEmail(), cardNumber);
-//                failedAttempts.put(cardNumber, 0);
-//            }
-//            return;
-//        }
+        if (userOtp != otp) {
+
+            int attempts = failedAttempts.getOrDefault(cardNumber, 0) + 1;
+            failedAttempts.put(cardNumber, attempts);
+
+            System.out.println("Incorrect OTP. Attempt: " + attempts);
+
+            if (attempts >= 3) {
+                System.out.println("Suspicious activity detected");
+                emailService.sendFraudAlert(cardObj.getEmail(), cardNumber);
+                failedAttempts.put(cardNumber, 0);
+            }
+            return;
+        }
 
         // Reset attempts
         failedAttempts.put(cardNumber, 0);

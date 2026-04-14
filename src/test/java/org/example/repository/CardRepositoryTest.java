@@ -35,7 +35,7 @@ class CardRepositoryTest {
                     expiry_date DATE,
                     card_type VARCHAR(20),
                     issuing_bank VARCHAR(50),
-                    cvv VARCHAR(5),
+                    cvv VARCHAR(3),
                     email VARCHAR(100)
                 )
         """);

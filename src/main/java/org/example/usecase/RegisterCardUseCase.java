@@ -4,6 +4,7 @@ import org.example.model.Card;
 import org.example.repository.CardRepository;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 public class RegisterCardUseCase {
@@ -32,11 +33,31 @@ public class RegisterCardUseCase {
         System.out.print("Enter Cardholder Name: ");
         String name = scanner.nextLine();
 
+        while (!ValidationUtil.isValidName(name)){
+            System.out.println("Invalid name. Name must only contain characters");
+            System.out.print("Enter Cardholder Name: ");
+            name = scanner.nextLine();
+        }
+
         System.out.print("Enter CVV: ");
         String cvv = scanner.nextLine();
+        while (!ValidationUtil.isValidCvv(cvv)) {
+            System.out.println("Invalid CVV. CVV must contain exactly 3 digits.");
+            System.out.print("Enter CVV: ");
+            cvv = scanner.nextLine();
+        }
 
         System.out.print("Enter Expiry Date (YYYY-MM-DD): ");
-        LocalDate expiryDate = LocalDate.parse(scanner.nextLine());
+        LocalDate expiryDate;
+        while (true) {
+            try {
+                expiryDate = LocalDate.parse(scanner.nextLine());
+                break;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid expiry date. Please use YYYY-MM-DD.");
+                System.out.print("Enter Expiry Date (YYYY-MM-DD): ");
+            }
+        }
 
         System.out.print("Enter Email: ");
         String email = scanner.nextLine();
@@ -58,8 +79,20 @@ class ValidationUtil {
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
     );
+    private static final Pattern CVV_PATTERN = Pattern.compile("^\\d{3}$");
+
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z]+$");
+
+    public static boolean isValidCvv(String cvv) {
+        return cvv != null && CVV_PATTERN.matcher(cvv).matches();
+    }
 
     public static boolean isValidEmail(String email) {
         return email != null && EMAIL_PATTERN.matcher(email).matches();
     }
+
+    public static boolean isValidName(String name){
+        return name != null && NAME_PATTERN.matcher(name).matches();
+    }
+
 }

@@ -46,4 +46,22 @@ class RegisterCardUseCaseTest {
 
         verify(repo, never()).save(any());
     }
+
+    @Test
+    void shouldRetryWhenExpiryDateIsInvalid() {
+
+        CardRepository repo = mock(CardRepository.class);
+
+        when(repo.findByNumber(any())).thenReturn(Optional.empty());
+
+        Scanner scanner = new Scanner(new ByteArrayInputStream(
+                ("1234567812345678\nSatish\n123\ndj\n2026-12-31\ntest@mail.com\n").getBytes()
+        ));
+
+        RegisterCardUseCase useCase = new RegisterCardUseCase(repo);
+
+        useCase.execute(scanner);
+
+        verify(repo).save(any());
+    }
 }

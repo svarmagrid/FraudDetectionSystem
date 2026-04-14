@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS cards (
     expiry_date DATE NOT NULL,
     card_type VARCHAR(20),
     issuing_bank VARCHAR(50),
-    cvv VARCHAR(4),
+    cvv VARCHAR(3),
     email VARCHAR(50)
 );
 
