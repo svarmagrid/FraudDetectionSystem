@@ -52,7 +52,7 @@ class FraudAlertServiceTest {
         String log = output.toString();
 
         assertTrue(log.contains("[ALERT]"));
-        assertTrue(log.contains("1234567812345678"));
+        assertTrue(log.contains("**** **** **** 5678"));
         assertTrue(log.contains("9999"));
     }
 
