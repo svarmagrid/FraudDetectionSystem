@@ -132,7 +132,8 @@ public class EmailNotificationService implements Observer {
 
         } catch (MessagingException e) {
             System.out.println("[EMAIL ERROR] Failed to send OTP");
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.exit(0);
         }
     }
 
@@ -184,7 +185,7 @@ public class EmailNotificationService implements Observer {
 
         } catch (MessagingException e) {
             System.out.println("[EMAIL ERROR] Failed to send fraud alert");
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 }

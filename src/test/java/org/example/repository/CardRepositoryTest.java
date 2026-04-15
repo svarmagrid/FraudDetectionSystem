@@ -5,7 +5,7 @@ import org.example.model.Card;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,7 +32,8 @@ class CardRepositoryTest {
                     card_id INT AUTO_INCREMENT PRIMARY KEY,
                     card_number VARCHAR(20),
                     cardholder_name VARCHAR(50),
-                    expiry_date DATE,
+                    expiry_month INT,
+                    expiry_year INT,
                     card_type VARCHAR(20),
                     issuing_bank VARCHAR(50),
                     cvv VARCHAR(3),
@@ -46,7 +47,7 @@ class CardRepositoryTest {
                 0,
                 "1234567812345678",
                 "Satish",
-                LocalDate.now().plusYears(1),
+                YearMonth.now().plusYears(1),
                 "VISA",
                 "HDFC",
                 "123",

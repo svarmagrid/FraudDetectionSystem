@@ -5,6 +5,7 @@ import org.example.model.*;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.YearMonth;
 import java.util.List;
 
 public class TransactionRepository {
@@ -101,7 +102,7 @@ public class TransactionRepository {
                                 rs.getInt("card_id"),
                                 rs.getString("card_number"),
                                 rs.getString("cardholder_name"),
-                                rs.getDate("expiry_date").toLocalDate(),
+                                YearMonth.of(rs.getInt("expiry_year"), rs.getInt("expiry_month")),
                                 rs.getString("card_type"),
                                 rs.getString("issuing_bank"),
                                 null ,
@@ -154,7 +155,7 @@ public class TransactionRepository {
                                 rs.getInt("card_id"),
                                 rs.getString("card_number"),
                                 rs.getString("cardholder_name"),
-                                rs.getDate("expiry_date").toLocalDate(),
+                                YearMonth.of(rs.getInt("expiry_year"), rs.getInt("expiry_month")),
                                 rs.getString("card_type"),
                                 rs.getString("issuing_bank"),
                                 null,

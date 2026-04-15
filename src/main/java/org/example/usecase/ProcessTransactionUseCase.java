@@ -25,7 +25,7 @@ public class ProcessTransactionUseCase {
     private final Map<String, LocalDateTime> flaggedCards = new HashMap<>();
 
     private static final int COOLDOWN_MINUTES = 2;
-
+    private static final boolean sendOtp = false;
     public ProcessTransactionUseCase(CardRepository cardRepo,
                                      TransactionRepository repo,
                                      FraudDetectionService fraudService,
@@ -75,7 +75,7 @@ public class ProcessTransactionUseCase {
         }
 
         // Expiry check
-        if (YearMonth.from(cardObj.getExpiryDate()).isBefore(YearMonth.now())) {
+        if (cardObj.getExpiryDate().isBefore(YearMonth.now())) {
             System.out.println("Card has expired. Transaction denied.");
             return;
         }
@@ -99,6 +99,8 @@ public class ProcessTransactionUseCase {
             return;
         }
 
+        if(sendOtp) {
+
         // OTP generation
         int otp = otpGenerator.generate();
 
@@ -115,19 +117,21 @@ public class ProcessTransactionUseCase {
             return;
         }
 
-        if (userOtp != otp) {
 
-            int attempts = failedAttempts.getOrDefault(cardNumber, 0) + 1;
-            failedAttempts.put(cardNumber, attempts);
+            if (userOtp != otp) {
 
-            System.out.println("Incorrect OTP. Attempt: " + attempts);
+                int attempts = failedAttempts.getOrDefault(cardNumber, 0) + 1;
+                failedAttempts.put(cardNumber, attempts);
 
-            if (attempts >= 3) {
-                System.out.println("Suspicious activity detected");
-                emailService.sendFraudAlert(cardObj.getEmail(), cardNumber);
-                failedAttempts.put(cardNumber, 0);
+                System.out.println("Incorrect OTP. Attempt: " + attempts);
+
+                if (attempts >= 3) {
+                    System.out.println("Suspicious activity detected");
+                    emailService.sendFraudAlert(cardObj.getEmail(), cardNumber);
+                    failedAttempts.put(cardNumber, 0);
+                }
+                return;
             }
-            return;
         }
 
         // Reset attempts

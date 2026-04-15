@@ -1,19 +1,19 @@
 package org.example.model;
 
-import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.Objects;
 
 public class Card {
     private int cardId;
     private String cardNumber;
     private String cardholderName;
-    private LocalDate expiryDate;
+    private YearMonth expiryDate;
     private String cardType;
     private String issuingBank;
     private String cvv;
     private String email;
 
-    public Card(int cardId, String cardNumber, String cardholderName, LocalDate expiryDate,
+    public Card(int cardId, String cardNumber, String cardholderName, YearMonth expiryDate,
                 String cardType, String issuingBank, String cvv, String email) {
         this.cardId = cardId;
         this.cardNumber = cardNumber;
@@ -28,7 +28,7 @@ public class Card {
     public int getCardId() { return cardId; }
     public String getCardNumber() { return cardNumber; }
     public String getCardholderName() { return cardholderName; }
-    public LocalDate getExpiryDate() { return expiryDate; }
+    public YearMonth getExpiryDate() { return expiryDate; }
     public String getCardType() { return cardType; }
     public String getIssuingBank() { return issuingBank; }
     public String getCvv() { return cvv; }

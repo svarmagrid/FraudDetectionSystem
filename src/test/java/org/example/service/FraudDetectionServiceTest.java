@@ -5,8 +5,8 @@ import org.example.repository.TransactionRepository;
 import org.example.state.TransactionContext;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -22,7 +22,7 @@ class FraudDetectionServiceTest {
                 1,
                 "1234567812345678",
                 "Satish",
-                LocalDate.now().plusYears(1),
+                YearMonth.now().plusYears(1),
                 "VISA",
                 "HDFC",
                 "123",

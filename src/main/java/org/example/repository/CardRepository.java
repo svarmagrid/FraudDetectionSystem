@@ -3,7 +3,7 @@ package org.example.repository;
 import org.example.jdbc.JdbcUtil;
 import org.example.model.Card;
 
-import java.sql.Date;
+import java.time.YearMonth;
 import java.util.Optional;
 
 public class CardRepository {
@@ -37,10 +37,11 @@ public class CardRepository {
 //    }
     public int save(Card card) {
         jdbc.execute(
-                "INSERT INTO cards(card_number, cardholder_name, expiry_date, card_type, issuing_bank, cvv, email) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO cards(card_number, cardholder_name, expiry_month, expiry_year, card_type, issuing_bank, cvv, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                 card.getCardNumber(),
                 card.getCardholderName(),
-                Date.valueOf(card.getExpiryDate()),
+                card.getExpiryDate().getMonthValue(),
+                card.getExpiryDate().getYear(),
                 card.getCardType(),
                 card.getIssuingBank(),
                 card.getCvv(),
@@ -70,7 +71,7 @@ public class CardRepository {
                                 rs.getInt("card_id"),
                                 rs.getString("card_number"),
                                 rs.getString("cardholder_name"),
-                                rs.getDate("expiry_date").toLocalDate(), // safe (NOT NULL)
+                                YearMonth.of(rs.getInt("expiry_year"), rs.getInt("expiry_month")),
                                 rs.getString("card_type"),
                                 rs.getString("issuing_bank"),
                                 rs.getString("cvv"),

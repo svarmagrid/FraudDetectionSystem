@@ -19,7 +19,7 @@ class RegisterCardUseCaseTest {
         when(repo.findByNumber(any())).thenReturn(Optional.empty());
 
         Scanner scanner = new Scanner(new ByteArrayInputStream(
-                ("1234567812345678\nSatish\n123\n2026-12-31\ntest@mail.com\n").getBytes()
+                ("1234567812345678\nSatish\n123\n12/2026\ntest@mail.com\n").getBytes()
         ));
 
         RegisterCardUseCase useCase = new RegisterCardUseCase(repo);
@@ -55,7 +55,7 @@ class RegisterCardUseCaseTest {
         when(repo.findByNumber(any())).thenReturn(Optional.empty());
 
         Scanner scanner = new Scanner(new ByteArrayInputStream(
-                ("1234567812345678\nSatish\n123\ndj\n2026-12-31\ntest@mail.com\n").getBytes()
+                ("1234567812345678\nSatish\n123\ndj\n12/2026\ntest@mail.com\n").getBytes()
         ));
 
         RegisterCardUseCase useCase = new RegisterCardUseCase(repo);

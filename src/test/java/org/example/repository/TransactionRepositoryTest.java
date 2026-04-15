@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -35,7 +35,7 @@ class TransactionRepositoryTest {
                 1,
                 "1234567812345678",
                 "Satish",
-                LocalDate.now().plusYears(1),
+                YearMonth.now().plusYears(1),
                 "VISA",
                 "HDFC",
                 "123",
@@ -139,8 +139,8 @@ class TransactionRepositoryTest {
                     when(rs.getInt("card_id")).thenReturn(1);
                     when(rs.getString("card_number")).thenReturn("1234567812345678");
                     when(rs.getString("cardholder_name")).thenReturn("Satish");
-                    when(rs.getDate("expiry_date"))
-                            .thenReturn(java.sql.Date.valueOf(LocalDate.now()));
+                    when(rs.getInt("expiry_month")).thenReturn(YearMonth.now().getMonthValue());
+                    when(rs.getInt("expiry_year")).thenReturn(YearMonth.now().getYear());
                     when(rs.getString("card_type")).thenReturn("VISA");
                     when(rs.getString("issuing_bank")).thenReturn("HDFC");
                     when(rs.getString("email")).thenReturn("mail@test.com");

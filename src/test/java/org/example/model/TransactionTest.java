@@ -2,8 +2,8 @@ package org.example.model;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +14,7 @@ class TransactionTest {
                 1,
                 "1234567812345678",
                 "Satish",
-                LocalDate.now().plusYears(1),
+                YearMonth.now().plusYears(1),
                 "VISA",
                 "HDFC",
                 "123",

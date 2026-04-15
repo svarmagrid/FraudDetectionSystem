@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +17,7 @@ class EmailNotificationServiceTest {
     private Transaction txnWithEmail() {
         Card card = new Card(
                 1, "1234567812345678", "Satish",
-                LocalDate.now().plusYears(1),
+                YearMonth.now().plusYears(1),
                 "VISA", "HDFC", "123",
                 "test@mail.com"
         );
@@ -35,7 +35,7 @@ class EmailNotificationServiceTest {
     private Transaction txnWithoutEmail() {
         Card card = new Card(
                 1, "1234567812345678", "Satish",
-                LocalDate.now().plusYears(1),
+                YearMonth.now().plusYears(1),
                 "VISA", "HDFC", "123",
                 null
         );
@@ -169,7 +169,7 @@ class EmailNotificationServiceTest {
 
         Card card = new Card(
                 1, "123", "Satish",
-                LocalDate.now().plusYears(1),
+                YearMonth.now().plusYears(1),
                 "VISA", "HDFC", "123",
                 "test@mail.com"
         );

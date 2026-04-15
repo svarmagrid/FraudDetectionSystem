@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Field;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
@@ -52,7 +52,7 @@ class ProcessTransactionUseCaseTest {
                 1,
                 "1234567812345678",
                 "Satish",
-                LocalDate.now().plusYears(1),
+                YearMonth.now().plusYears(1),
                 "VISA",
                 "HDFC",
                 "123",
@@ -65,7 +65,7 @@ class ProcessTransactionUseCaseTest {
                 1,
                 "1234567812345678",
                 "Satish",
-                LocalDate.now().minusYears(1),
+                YearMonth.now().minusYears(1),
                 "VISA",
                 "HDFC",
                 "123",

@@ -13,7 +13,7 @@ class TransactionContextTest {
     private Transaction createTransaction() {
         Card card = new Card(
                 1, "1234567812345678", "Satish",
-                java.time.LocalDate.now().plusYears(1),
+                java.time.YearMonth.now().plusYears(1),
                 null, null, "123", "test@mail.com"
         );
 

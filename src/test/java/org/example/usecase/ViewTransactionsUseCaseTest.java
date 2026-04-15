@@ -4,8 +4,8 @@ import org.example.model.*;
 import org.example.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -18,7 +18,7 @@ class ViewTransactionsUseCaseTest {
         TransactionRepository repo = mock(TransactionRepository.class);
 
         Card card = new Card(1, "1234567812345678", "Satish",
-                LocalDate.now(), "VISA", "HDFC", "123", "mail");
+                YearMonth.now(), "VISA", "HDFC", "123", "mail");
 
         Transaction txn = new Transaction("TXN1", card, 1000, LocalDateTime.now());
 

@@ -3,7 +3,7 @@ package org.example.usecase;
 import org.example.model.Card;
 import org.example.repository.CardRepository;
 
-import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
@@ -47,15 +47,15 @@ public class RegisterCardUseCase {
             cvv = scanner.nextLine();
         }
 
-        System.out.print("Enter Expiry Date (YYYY-MM-DD): ");
-        LocalDate expiryDate;
+        System.out.print("Enter Expiry Date (MM/yy or MM/yyyy): ");
+        YearMonth expiryDate;
         while (true) {
             try {
-                expiryDate = LocalDate.parse(scanner.nextLine());
+                expiryDate = ValidationUtil.parseExpiryDate(scanner.nextLine());
                 break;
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid expiry date. Please use YYYY-MM-DD.");
-                System.out.print("Enter Expiry Date (YYYY-MM-DD): ");
+                System.out.println("Invalid expiry date. Please use MM/yy or MM/yyyy.");
+                System.out.print("Enter Expiry Date (MM/yy or MM/yyyy): ");
             }
         }
 
@@ -93,6 +93,40 @@ class ValidationUtil {
 
     public static boolean isValidName(String name){
         return name != null && NAME_PATTERN.matcher(name).matches();
+    }
+
+    public static YearMonth parseExpiryDate(String input) {
+        if (input == null) {
+            throw new DateTimeParseException("Expiry date is required", "", 0);
+        }
+
+        String normalized = input.trim();
+        String[] parts = normalized.split("/");
+        if (parts.length != 2) {
+            throw new DateTimeParseException("Invalid expiry format", normalized, 0);
+        }
+
+        int month;
+        int year;
+
+        try {
+            month = Integer.parseInt(parts[0]);
+            year = Integer.parseInt(parts[1]);
+        } catch (NumberFormatException e) {
+            throw new DateTimeParseException("Invalid expiry format", normalized, 0, e);
+        }
+
+        if (month < 1 || month > 12) {
+            throw new DateTimeParseException("Invalid expiry month", normalized, 0);
+        }
+
+        if (parts[1].length() == 2) {
+            year += 2000;
+        } else if (parts[1].length() != 4) {
+            throw new DateTimeParseException("Invalid expiry year", normalized, 3);
+        }
+
+        return YearMonth.of(year, month);
     }
 
 }
